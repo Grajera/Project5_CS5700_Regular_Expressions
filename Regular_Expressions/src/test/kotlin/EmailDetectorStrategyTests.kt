@@ -1,10 +1,7 @@
-import detectors.Detectors.BinaryNumberDetector
 import detectors.Detectors.EmailDetector
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import regular_expressions.Detector
-import regular_expressions.StateMachineFactory
-import regular_expressions.Verification
+import project5.Interfaces.Detector
 
 class EmailDetectorStrategyTests {
 

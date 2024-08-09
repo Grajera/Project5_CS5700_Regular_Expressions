@@ -1,11 +1,8 @@
 package FloatingPointStateStates
 
-import regular_expressions.BadState
-import regular_expressions.State
+import project5.BadState
+import project5.Interfaces.State
 
-/**
- * Represents the initial state in the floating point validation process.
- */
 object FloatingPointStartState : State {
     override fun tokenize(token: String): State = when {
         token == "0" -> FloatingPointAfterZeroStartState // '0' followed by a period is valid

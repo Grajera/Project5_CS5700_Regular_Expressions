@@ -1,3 +1,0 @@
-package regular_expressions
-
-interface Validation

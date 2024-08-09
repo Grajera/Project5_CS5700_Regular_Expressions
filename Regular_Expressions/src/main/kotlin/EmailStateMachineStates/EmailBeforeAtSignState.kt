@@ -1,11 +1,8 @@
 package EmailStateMachineStates
 
-import regular_expressions.BadState
-import regular_expressions.State
+import project5.BadState
+import project5.Interfaces.State
 
-/**
- * Represents the first step in the email validation process.
- */
 object EmailBeforeAtSignState : State {
     override fun tokenize(token: String): State = when {
         token == " " -> BadState() // Invalid if space is encountered

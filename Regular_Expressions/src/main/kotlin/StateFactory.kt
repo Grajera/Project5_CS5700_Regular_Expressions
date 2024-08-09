@@ -1,10 +1,11 @@
-package regular_expressions
+package project5
 
 import BinaryStateMachineStates.BinaryStartingState
 import EmailStateMachineStates.EmailStartingState
 import FloatingPointStateStates.FloatingPointStartState
 import IntegerStateMachineStates.InitialIntegerState
-import regular_expressions.password.PasswordStartingState
+import project5.Interfaces.State
+import project5.password.PasswordStartingState
 
 class StateMachineFactory {
     private val stateMachines = mapOf(

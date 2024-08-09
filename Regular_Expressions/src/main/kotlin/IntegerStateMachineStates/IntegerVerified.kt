@@ -2,10 +2,11 @@ package IntegerStateMachineStates
 
 import project5.BadState
 import project5.Interfaces.State
+import project5.Interfaces.Verification
 
-object InitialIntegerState : State {
+object IntegerVerified : State, Verification {
     override fun tokenize(token: String): State = when {
-        token in "123456789" -> IntegerVerified // Valid if starting with a non-zero digit
+        token in "0123456789" -> IntegerVerified // Continue accepting digits
         else -> BadState() // Invalid input
     }
 }

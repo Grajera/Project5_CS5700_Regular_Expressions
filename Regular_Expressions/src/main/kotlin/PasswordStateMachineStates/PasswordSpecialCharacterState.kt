@@ -1,13 +1,13 @@
-package regular_expressions.password
+package project5.password
 
-import regular_expressions.BadState
-import regular_expressions.State
+import project5.BadState
+import project5.Interfaces.State
 
 class PasswordSpecialCharacterState : State {
     override fun tokenize(token: String): State {
         return when {
             token == " " -> BadState()
-            token in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" -> PasswordValidated()
+            token in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" -> PasswordVerified()
             else -> PasswordSpecialCharacterState()
         }
     }

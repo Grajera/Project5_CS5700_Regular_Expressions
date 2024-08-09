@@ -1,11 +1,8 @@
 package FloatingPointStateStates
 
-import regular_expressions.BadState
-import regular_expressions.State
+import project5.BadState
+import project5.Interfaces.State
 
-/**
- * Represents the first step in the floating point validation process.
- */
 object FloatingPointNonZeroDigitState : State {
     override fun tokenize(token: String): State = when {
         token == "." -> FloatingPointAfterPeriodState // Move to step 2 if '.' is found

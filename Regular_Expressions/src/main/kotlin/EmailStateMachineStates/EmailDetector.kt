@@ -1,13 +1,13 @@
 package detectors.Detectors
 
-import regular_expressions.Detector
-import regular_expressions.StateMachineFactory
-import regular_expressions.Verification
+import project5.Interfaces.Detector
+import project5.StateMachineFactory
+import project5.VerifiedState
 
 class EmailDetector : Detector {
     private val stateMachine = StateMachineFactory().createStateMachine("email")!!
 
     override fun isValid(input: String): Boolean {
-        return Verification().verify(input, stateMachine)
+        return VerifiedState().verify(input, stateMachine)
     }
 }
