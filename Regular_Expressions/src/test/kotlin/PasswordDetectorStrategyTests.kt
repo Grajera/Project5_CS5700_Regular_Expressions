@@ -1,26 +1,25 @@
-import detectors.Detectors.DetectorFactory
-import detectors.Detectors.DetectorType
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import regular_expressions.FirstStateFactory
+import regular_expressions.Verifier
 
 class PasswordDetectorStrategyTests {
 
-    private val factory = DetectorFactory()
+    val verifier = Verifier()
+    val passwordPointState = FirstStateFactory().createFirstState("password")!!
 
     @Test
     fun testValidPasswords() {
-        val passwordDetector = factory.createDetector(DetectorType.PASSWORD)
-        assertTrue(passwordDetector.isValid("aaaaH!aa"))                   // Valid
-        assertTrue(passwordDetector.isValid("1234567*9J"))                 // Valid
-        assertTrue(passwordDetector.isValid("asdpoihj;loikjasdf;ijp;lij2309jasd;lfkm20ij@aH")) // Valid
+        assertTrue(verifier.verify("aaaaH!aa", passwordPointState))                   // Valid
+        assertTrue(verifier.verify("1234567*9J", passwordPointState))                 // Valid
+        assertTrue(verifier.verify("asdpoihj;loikjasdf;ijp;lij2309jasd;lfkm20ij@aH", passwordPointState)) // Valid
     }
 
     @Test
     fun testInvalidPasswords() {
-        val passwordDetector = factory.createDetector(DetectorType.PASSWORD)
-        assertFalse(passwordDetector.isValid("a"))                          // Too short
-        assertFalse(passwordDetector.isValid("aaaaaaa!"))                  // No capital letter and ends with special char
-        assertFalse(passwordDetector.isValid("aaaHaaaaa"))                 // No special char
-        assertFalse(passwordDetector.isValid("Abbbbbbb!"))                 // Ends with special char
+        assertFalse(verifier.verify("a", passwordPointState))                          // Too short
+        assertFalse(verifier.verify("aaaaaaa!", passwordPointState))                  // No capital letter and ends with special char
+        assertFalse(verifier.verify("aaaHaaaaa", passwordPointState))                 // No special char
+        assertFalse(verifier.verify("Abbbbbbb!", passwordPointState))                 // Ends with special char
     }
 }

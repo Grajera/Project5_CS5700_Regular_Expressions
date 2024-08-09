@@ -1,28 +1,26 @@
-import detectors.Detectors.DetectorFactory
-import detectors.Detectors.DetectorType
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import regular_expressions.FirstStateFactory
+import regular_expressions.Verifier
 
 class EmailDetectorStrategyTests {
 
-    private val factory = DetectorFactory()
+    val verifier = Verifier()
+    val emailState = FirstStateFactory().createFirstState("email")!!
 
     @Test
     fun testValidEmails() {
-        val emailDetector = factory.createDetector(DetectorType.EMAIL)
-        assertTrue(emailDetector.isValid("a@b.c"))                   // Valid
-        assertTrue(emailDetector.isValid("joseph.ditton@usu.edu"))   // Valid
-        assertTrue(emailDetector.isValid("{}*$.&$*(@*$%&.*&*"))      // Valid
+        assertTrue(verifier.verify("a@b.c", emailState))                   // Valid
+        assertTrue(verifier.verify("joseph.ditton@usu.edu", emailState))   // Valid
+        assertTrue(verifier.verify("{}*$.&$*(@*$%&.*&*", emailState))      // Valid
     }
 
     @Test
     fun testInvalidEmails() {
-        val emailDetector = factory.createDetector(DetectorType.EMAIL)
-        assertFalse(emailDetector.isValid("@b.c"))                   // Part 1 is empty
-        assertFalse(emailDetector.isValid("a@b@c.com"))              // Too many @ symbols
-        assertFalse(emailDetector.isValid("a.b@b.b.c"))              // Too many periods after the @
-        assertFalse(emailDetector.isValid("joseph ditton@usu.edu"))  // Space character not allowed
-        assertFalse(emailDetector.isValid("a@.c"))                   // Part 2 empty
-        assertFalse(emailDetector.isValid("a@b."))                   // Part 3 empty
+        assertFalse(verifier.verify("@b.c", emailState))                   // Part 1 is empty
+        assertFalse(verifier.verify("a@b@c.com", emailState))              // Too many @ symbols
+        assertFalse(verifier.verify("a.b@b.b.c", emailState))              // Too many periods after the @
+        assertFalse(verifier.verify("joseph ditton@usu.edu", emailState))  // Space character not allowed
+        assertFalse(verifier.verify("a@b.", emailState))                   // Part 3 empty
     }
 }

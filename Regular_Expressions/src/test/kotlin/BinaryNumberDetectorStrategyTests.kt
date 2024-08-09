@@ -1,28 +1,26 @@
-import detectors.Detectors.DetectorFactory
-import detectors.Detectors.DetectorType
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import regular_expressions.FirstStateFactory
+import regular_expressions.Verifier
 
 class BinaryNumberDetectorStrategyTests {
-
-    private val factory = DetectorFactory()
+    val verifier = Verifier()
+    val binaryState = FirstStateFactory().createFirstState("binary")!!
 
     @Test
     fun testValidBinaries() {
-        val binaryDetector = factory.createDetector(DetectorType.BINARY_NUMBER)
-        assertTrue(binaryDetector.isValid("1"))                      // Valid
-        assertTrue(binaryDetector.isValid("11"))                     // Valid
-        assertTrue(binaryDetector.isValid("101"))                    // Valid
-        assertTrue(binaryDetector.isValid("111111"))                 // Valid
-        assertTrue(binaryDetector.isValid("10011010001"))           // Valid
+        assertTrue(verifier.verify("1", binaryState))
+        assertTrue(verifier.verify("11", binaryState))
+        assertTrue(verifier.verify("101", binaryState))
+        assertTrue(verifier.verify("111111", binaryState))
+        assertTrue(verifier.verify("10011010001", binaryState))
     }
 
     @Test
     fun testInvalidBinaries() {
-        val binaryDetector = factory.createDetector(DetectorType.BINARY_NUMBER)
-        assertFalse(binaryDetector.isValid("01"))                    // Doesn't start with 1
-        assertFalse(binaryDetector.isValid("10"))                    // Doesn't end with 1
-        assertFalse(binaryDetector.isValid("1000010"))               // Doesn't end with 1
-        assertFalse(binaryDetector.isValid("100a01"))                // Contains invalid character
+        assertFalse(verifier.verify("01", binaryState))
+        assertFalse(verifier.verify("10", binaryState))
+        assertFalse(verifier.verify("1000010", binaryState))
+        assertFalse(verifier.verify("100a01", binaryState))
     }
 }
