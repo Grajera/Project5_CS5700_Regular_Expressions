@@ -1,25 +1,27 @@
+import detectors.Detectors.IntegerDetector
+import detectors.Detectors.PasswordDetector
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import regular_expressions.FirstStateFactory
-import regular_expressions.Verifier
+import regular_expressions.Detector
+import regular_expressions.StateMachineFactory
+import regular_expressions.Verification
 
 class PasswordDetectorStrategyTests {
 
-    val verifier = Verifier()
-    val passwordPointState = FirstStateFactory().createFirstState("password")!!
+    private val PasswordDetector: Detector = PasswordDetector()
 
     @Test
     fun testValidPasswords() {
-        assertTrue(verifier.verify("aaaaH!aa", passwordPointState))                   // Valid
-        assertTrue(verifier.verify("1234567*9J", passwordPointState))                 // Valid
-        assertTrue(verifier.verify("asdpoihj;loikjasdf;ijp;lij2309jasd;lfkm20ij@aH", passwordPointState)) // Valid
+        assertTrue(PasswordDetector.isValid("aaaaH!aa"))                   // Valid
+        assertTrue(PasswordDetector.isValid("1234567*9J"))                 // Valid
+        assertTrue(PasswordDetector.isValid("asdpoihj;loikjasdf;ijp;lij2309jasd;lfkm20ij@aH")) // Valid
     }
 
     @Test
     fun testInvalidPasswords() {
-        assertFalse(verifier.verify("a", passwordPointState))                          // Too short
-        assertFalse(verifier.verify("aaaaaaa!", passwordPointState))                  // No capital letter and ends with special char
-        assertFalse(verifier.verify("aaaHaaaaa", passwordPointState))                 // No special char
-        assertFalse(verifier.verify("Abbbbbbb!", passwordPointState))                 // Ends with special char
+        assertFalse(PasswordDetector.isValid("a"))                          // Too short
+        assertFalse(PasswordDetector.isValid("aaaaaaa!"))                  // No capital letter and ends with special char
+        assertFalse(PasswordDetector.isValid("aaaHaaaaa"))                 // No special char
+        assertFalse(PasswordDetector.isValid("Abbbbbbb!"))                 // Ends with special char
     }
 }

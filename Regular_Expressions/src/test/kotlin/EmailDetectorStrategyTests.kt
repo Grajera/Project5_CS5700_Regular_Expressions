@@ -1,26 +1,28 @@
+import detectors.Detectors.BinaryNumberDetector
+import detectors.Detectors.EmailDetector
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import regular_expressions.FirstStateFactory
-import regular_expressions.Verifier
+import regular_expressions.Detector
+import regular_expressions.StateMachineFactory
+import regular_expressions.Verification
 
 class EmailDetectorStrategyTests {
 
-    val verifier = Verifier()
-    val emailState = FirstStateFactory().createFirstState("email")!!
+    private val EmailDetector: Detector = EmailDetector()
 
     @Test
     fun testValidEmails() {
-        assertTrue(verifier.verify("a@b.c", emailState))                   // Valid
-        assertTrue(verifier.verify("joseph.ditton@usu.edu", emailState))   // Valid
-        assertTrue(verifier.verify("{}*$.&$*(@*$%&.*&*", emailState))      // Valid
+        assertTrue(EmailDetector.isValid("a@b.c"))                   // Valid
+        assertTrue(EmailDetector.isValid("joseph.ditton@usu.edu"))   // Valid
+        assertTrue(EmailDetector.isValid("{}*$.&$*(@*$%&.*&*"))      // Valid
     }
 
     @Test
     fun testInvalidEmails() {
-        assertFalse(verifier.verify("@b.c", emailState))                   // Part 1 is empty
-        assertFalse(verifier.verify("a@b@c.com", emailState))              // Too many @ symbols
-        assertFalse(verifier.verify("a.b@b.b.c", emailState))              // Too many periods after the @
-        assertFalse(verifier.verify("joseph ditton@usu.edu", emailState))  // Space character not allowed
-        assertFalse(verifier.verify("a@b.", emailState))                   // Part 3 empty
+        assertFalse(EmailDetector.isValid("@b.c"))                   // Part 1 is empty
+        assertFalse(EmailDetector.isValid("a@b@c.com"))              // Too many @ symbols
+        assertFalse(EmailDetector.isValid("a.b@b.b.c"))              // Too many periods after the @
+        assertFalse(EmailDetector.isValid("joseph ditton@usu.edu"))  // Space character not allowed
+        assertFalse(EmailDetector.isValid("a@b."))                   // Part 3 empty
     }
 }

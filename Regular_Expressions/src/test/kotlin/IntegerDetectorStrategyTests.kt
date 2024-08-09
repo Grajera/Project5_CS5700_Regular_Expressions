@@ -1,26 +1,28 @@
+import detectors.Detectors.EmailDetector
+import detectors.Detectors.IntegerDetector
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import regular_expressions.FirstStateFactory
-import regular_expressions.Verifier
+import regular_expressions.Detector
+import regular_expressions.StateMachineFactory
+import regular_expressions.Verification
 
 class IntegerDetectorStrategyTests {
 
-    val verifier = Verifier()
-    val integerPointState = FirstStateFactory().createFirstState("integer")!!
+    private val IntegerDetector: Detector = IntegerDetector()
 
     @Test
     fun testValidIntegers() {
-        assertTrue(verifier.verify("1",integerPointState))                     // Valid
-        assertTrue(verifier.verify("65448654321",integerPointState))           // Valid
-        assertTrue(verifier.verify("123",integerPointState))                   // Valid
-        assertTrue(verifier.verify("3452342352434534524346",integerPointState))// Valid
+        assertTrue(IntegerDetector.isValid("1"))                     // Valid
+        assertTrue(IntegerDetector.isValid("65448654321"))           // Valid
+        assertTrue(IntegerDetector.isValid("123"))                   // Valid
+        assertTrue(IntegerDetector.isValid("3452342352434534524346"))// Valid
     }
 
     @Test
     fun testInvalidIntegers() {
-        assertFalse(verifier.verify("",integerPointState))                     // Empty string
-        assertFalse(verifier.verify("0123",integerPointState))                 // Starts with 0
-        assertFalse(verifier.verify("132a",integerPointState))                 // Contains invalid character
-        assertFalse(verifier.verify("0",integerPointState))                    // Starts with 0
+        assertFalse(IntegerDetector.isValid(""))                     // Empty string
+        assertFalse(IntegerDetector.isValid("0123"))                 // Starts with 0
+        assertFalse(IntegerDetector.isValid("132a"))                 // Contains invalid character
+        assertFalse(IntegerDetector.isValid("0"))                    // Starts with 0
     }
 }
