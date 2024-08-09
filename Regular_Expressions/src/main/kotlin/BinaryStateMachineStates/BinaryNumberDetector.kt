@@ -8,6 +8,6 @@ class BinaryNumberDetector : Detector {
     private val stateMachine = StateMachineFactory().createStateMachine("binary")!!
 
     override fun isValid(input: String): Boolean {
-        return VerifiedState().verify(input, stateMachine)
+        return VerifiedState().authenticate(input, stateMachine)
     }
 }

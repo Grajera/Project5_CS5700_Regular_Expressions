@@ -8,6 +8,6 @@ class PasswordDetector : Detector {
     private val stateMachine = StateMachineFactory().createStateMachine("password")!!
 
     override fun isValid(input: String): Boolean {
-        return VerifiedState().verify(input, stateMachine)
+        return VerifiedState().authenticate(input, stateMachine)
     }
 }

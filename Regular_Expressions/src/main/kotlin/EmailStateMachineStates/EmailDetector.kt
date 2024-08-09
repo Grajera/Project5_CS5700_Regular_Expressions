@@ -8,6 +8,6 @@ class EmailDetector : Detector {
     private val stateMachine = StateMachineFactory().createStateMachine("email")!!
 
     override fun isValid(input: String): Boolean {
-        return VerifiedState().verify(input, stateMachine)
+        return VerifiedState().authenticate(input, stateMachine)
     }
 }

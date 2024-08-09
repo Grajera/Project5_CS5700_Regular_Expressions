@@ -8,6 +8,6 @@ class FloatingPointDetector : Detector {
     private val stateMachine = StateMachineFactory().createStateMachine("floatingPoint")!!
 
     override fun isValid(input: String): Boolean {
-        return VerifiedState().verify(input, stateMachine)
+        return VerifiedState().authenticate(input, stateMachine)
     }
 }
