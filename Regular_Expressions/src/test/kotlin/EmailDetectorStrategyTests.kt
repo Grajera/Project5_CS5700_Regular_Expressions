@@ -1,26 +1,28 @@
+import detectors.Detectors.BinaryNumberDetector
+import detectors.Detectors.EmailDetector
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import regular_expressions.Detector
 import regular_expressions.StateMachineFactory
 import regular_expressions.Verification
 
 class EmailDetectorStrategyTests {
 
-    val verification = Verification()
-    val emailState = StateMachineFactory().crateStateMachine("email")!!
+    private val EmailDetector: Detector = EmailDetector()
 
     @Test
     fun testValidEmails() {
-        assertTrue(verification.verify("a@b.c", emailState))                   // Valid
-        assertTrue(verification.verify("joseph.ditton@usu.edu", emailState))   // Valid
-        assertTrue(verification.verify("{}*$.&$*(@*$%&.*&*", emailState))      // Valid
+        assertTrue(EmailDetector.isValid("a@b.c"))                   // Valid
+        assertTrue(EmailDetector.isValid("joseph.ditton@usu.edu"))   // Valid
+        assertTrue(EmailDetector.isValid("{}*$.&$*(@*$%&.*&*"))      // Valid
     }
 
     @Test
     fun testInvalidEmails() {
-        assertFalse(verification.verify("@b.c", emailState))                   // Part 1 is empty
-        assertFalse(verification.verify("a@b@c.com", emailState))              // Too many @ symbols
-        assertFalse(verification.verify("a.b@b.b.c", emailState))              // Too many periods after the @
-        assertFalse(verification.verify("joseph ditton@usu.edu", emailState))  // Space character not allowed
-        assertFalse(verification.verify("a@b.", emailState))                   // Part 3 empty
+        assertFalse(EmailDetector.isValid("@b.c"))                   // Part 1 is empty
+        assertFalse(EmailDetector.isValid("a@b@c.com"))              // Too many @ symbols
+        assertFalse(EmailDetector.isValid("a.b@b.b.c"))              // Too many periods after the @
+        assertFalse(EmailDetector.isValid("joseph ditton@usu.edu"))  // Space character not allowed
+        assertFalse(EmailDetector.isValid("a@b."))                   // Part 3 empty
     }
 }

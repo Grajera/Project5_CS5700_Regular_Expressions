@@ -7,9 +7,9 @@ import regular_expressions.State
  * Represents the second step in the email validation process.
  */
 object EmailAfterAtSignState : State {
-    override fun next(char: String): State = when {
-        char == " " || char == "@" -> BadState() // Invalid if space or another '@' is encountered
-        char == "." -> EmailAfterPeriodState // Move to step 3 if '.' is found
+    override fun tokenize(token: String): State = when {
+        token == " " || token == "@" -> BadState() // Invalid if space or another '@' is encountered
+        token == "." -> EmailAfterPeriodState // Move to step 3 if '.' is found
         else -> EmailAfterAtSignState // Stay in this state
     }
 }
